@@ -14,48 +14,27 @@ void myhandlenotfound() {
   String strweb2 = strwebHost.substring(4);
   Serial.println(strwebGet);
   if ( strweb == "apri") {                     // -- comando per APRIRE
-    //Partenza_Sicura(1, 0, 0);
+    Partenza_Sicura(1, 0, 0);
     Serial.println("APRI");
-    //strwebHostOld = strwebHost;
-    //time_strwebHostOld = millis();
   }
   if ( strweb == "chiu") {                    // -- comando per CHIUDERE
-    //Partenza_Sicura(-1, 0, 0);
+    Partenza_Sicura(-1, 0, 0);
     Serial.println("CHIUDI");
-    //strwebHostOld = strwebHost;
-    //time_strwebHostOld = millis();
   }
   if ( strweb == "stop") {                    // -- comando per FERMARE
-    //Stop(5);
+    ferma_WARD();
     Serial.println("stop");
-    //strwebHostOld = strwebHost;
-    //time_strwebHostOld = millis();
   }
   if ( strweb == "save") {                    // -- comando per salvare
-    //Stop(5);
-    //Serial.println(strwebGet);
-    //strwebHostOld = strwebHost;
-    //time_strwebHostOld = millis();
-    //server.send(200, "text/html", strwebGet);
     salva_dati();
     server.send(200, "text/html", Storage_Read_Web());
   }
   if ( strweb == "load") {                    // -- comando per CARICARE LE VARIABILI DA STORAGE
-    //Stop(5);
-    //Serial.println(strwebGet);
-    //strwebHostOld = strwebHost;
-    //time_strwebHostOld = millis();
-    //server.send(200, "text/html", strwebGet);
     Storage_Load();
     server.send(200, "text/html","<p><a href=\"stop\">Torna al Menu</a></p>" );
   }
   
   if ( strweb == "XXXX") {                    // -- comando per CARICARE MANUALMENTE LA STRINGA
-    //Stop(5);
-    //Serial.println(strwebGet);
-    //strwebHostOld = strwebHost;
-    //time_strwebHostOld = millis();
-    //server.send(200, "text/html", strwebGet);
     server.send(200, "text/html", "<!DOCTYPE html>"
                                   "<html>"
                                   "<body>"

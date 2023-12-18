@@ -86,6 +86,22 @@ bool stringComplete = false;  // whether the string is complete
 
 void loop() {
   serialEvent();
+  if (stringComplete) {
+    if (inputString == "APRI") {
+      Partenza_Sicura(1, 0, 0);
+    Serial.println("APRI DA SERIAL");
+    }
+    if (inputString == "CHIUDI") {
+      Partenza_Sicura(-1, 0, 0);
+    Serial.println("CHIUDI DA SERIAL");
+    }
+    if (inputString == "STOP") {
+      ferma_WARD();
+    Serial.println("STOP DA SERIAL");
+    }
+    inputString = "";
+    stringComplete = false;
+  }
   //long tempo = micros();
   server.handleClient();                                             // -- controllo il web
   delay(1);

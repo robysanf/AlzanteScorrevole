@@ -39,8 +39,6 @@ void spaccaChiaveValore(String str_line) {
     char var_str[50];
     str_line.substring(0, posiz).toCharArray(var_str, 50);
     String valore = str_line.substring(posiz + 1);
-    Serial.print("valore prima di  uguale  = "); Serial.println(var_str);
-    Serial.print("valore dopo di  uguale  = "); Serial.println(valore);
     int j;
     for (j = 0;  j < sizeof (conversion) / sizeof (conversion[0]);  ++j)
     {
@@ -48,25 +46,25 @@ void spaccaChiaveValore(String str_line) {
       {
         switch (conversion[j].val)
         {
-          case DIPENDENTE:               dipendente = String(valore); Serial.print("set dipendente:"); Serial.println(dipendente); Serial.print("set valore:"); Serial.println(valore); break;                            // @-- Serial.print("dipendente = "); Serial.println(dipendente); break;
-          case NUMERO_ANTE_SLAVE:        Numero_Ante_Slave = String(valore).toInt(); Serial.print("set Numero_Ante_Slave:"); Serial.println(Numero_Ante_Slave); Serial.print("set valore:"); Serial.println(valore); break;
-          case VELOCITA_CROCERA_MAX:     velocita_crocera_MAX = String(valore).toFloat(); Serial.print("set velocita_crocera_MAX:"); Serial.println(velocita_crocera_MAX); Serial.print("set valore:"); Serial.println(valore); break;
-          case VELOCITA_CROCERA_LENTA:   velocita_crocera_LENTA = String(valore).toFloat(); Serial.print("set dipendente:"); Serial.println(dipendente); Serial.print("set valore:"); Serial.println(valore); break;
-          case ANTE_SLAVE:               stringaToIntArray(valore, Ante_Slave); Serial.print("set Ante_Slave:"); Serial.println(Ante_Slave[1]); Serial.print("set valore:"); Serial.println(valore); break;                 // @-- Serial.print(" Ante_Slave pch: "); Serial.println(Ante_Slave[cont])
-          case RITARDO:                  stringaToFloatArray(valore, ritardo); Serial.print("set ritardo:"); Serial.println(ritardo[1]); Serial.print("set valore:"); Serial.println(valore); break;
-          case ATTRITO:                  stringaToStringArray(valore, attrito); Serial.print("set attrito:"); Serial.println(attrito[1]); Serial.print("set valore:"); Serial.println(valore); break;                         // @-- Serial.print("\n attrito pch: "); Serial.print(attrito[cont]);
-          case MOTORE:                   stringaToStringArray(valore, motore); Serial.print("set motore:"); Serial.println(motore[1]); Serial.print("set valore:"); Serial.println(valore); break;
-          case ENCODER:                  stringaToStringArray(valore, encoder); Serial.print("set encoder:"); Serial.println(encoder[1]); Serial.print("set valore:"); Serial.println(valore); break;
-          case INERZIA:                  stringaToIntArray(valore, inerzia); Serial.print("set inerzia:"); Serial.println(inerzia[1]); Serial.print("set valore:"); Serial.println(valore); break;
-          case PESO:                     stringaToIntArray(valore, peso); Serial.print("set peso:"); Serial.println(peso[1]); Serial.print("set valore:"); Serial.println(valore); break;
-          case ADDR:                     stringaToIntArray(valore, addr); Serial.print("set addr:"); Serial.println(dipendente); Serial.print("set addr:"); Serial.println(valore); break;                          // @-- Serial.print("\n addr= "); Serial.print(String( addr[cont]));
-          case POS_APERTO:               stringaToLongArray(valore, pos_aperto); Serial.print("set pos_aperto:"); Serial.println(pos_aperto[1]); Serial.print("set valore:"); Serial.println(valore); break;
-          case IMP:                      imp = String(valore).toFloat(); Serial.print("set imp:"); Serial.println(imp); Serial.print("set valore:"); Serial.println(valore); break;
-          case POS_CHIUSO:               pos_chiuso = String(valore).toInt(); Serial.print("set pos_chiuso:"); Serial.println(pos_chiuso); Serial.print("set valore:"); Serial.println(valore); break;
-          case CONFIGURAZIONE:           configurazione = String(valore); Serial.print("set configurazione:"); Serial.println(configurazione); Serial.print("set valore:"); Serial.println(valore); break;
+          case DIPENDENTE:               dipendente = String(valore); break;                            // @-- Serial.print("dipendente = "); Serial.println(dipendente); break;
+          case NUMERO_ANTE_SLAVE:        Numero_Ante_Slave = String(valore).toInt(); break;
+          case VELOCITA_CROCERA_MAX:     velocita_crocera_MAX = String(valore).toFloat(); break;
+          case VELOCITA_CROCERA_LENTA:   velocita_crocera_LENTA = String(valore).toFloat(); break;
+          case ANTE_SLAVE:               stringaToIntArray(valore, Ante_Slave); break;                 // @-- Serial.print(" Ante_Slave pch: "); Serial.println(Ante_Slave[cont])
+          case RITARDO:                  stringaToFloatArray(valore, ritardo); break;
+          case ATTRITO:                  stringaToStringArray(valore, attrito); break;                         // @-- Serial.print("\n attrito pch: "); Serial.print(attrito[cont]);
+          case MOTORE:                   stringaToStringArray(valore, motore); break;
+          case ENCODER:                  stringaToStringArray(valore, encoder); break;
+          case INERZIA:                  stringaToIntArray(valore, inerzia); break;
+          case PESO:                     stringaToIntArray(valore, peso); break;
+          case ADDR:                     stringaToIntArray(valore, addr); break;                          // @-- Serial.print("\n addr= "); Serial.print(String( addr[cont]));
+          case POS_APERTO:               stringaToLongArray(valore, pos_aperto); break;
+          case IMP:                      imp = String(valore).toFloat(); break;
+          case POS_CHIUSO:               pos_chiuso = String(valore).toInt(); break;
+          case CONFIGURAZIONE:           configurazione = String(valore); break;
           case POS:                      //pos = String(valore).toInt(); break;
-          case CADENZA:                  cadenza = String(valore).toInt(); Serial.print("set cadenza:"); Serial.println(cadenza); Serial.print("set valore:"); Serial.println(valore); break;
-          case VELOCITA_CROCERA_COL:     velocita_crocera_COL = String(valore).toFloat(); Serial.print("set velocita_crocera_COL:"); Serial.println(velocita_crocera_COL); Serial.print("set valore:"); Serial.println(valore); break;
+          case CADENZA:                  cadenza = String(valore).toInt(); break;
+          case VELOCITA_CROCERA_COL:     velocita_crocera_COL = String(valore).toFloat(); break;
         }
         break;
       }
@@ -75,7 +73,7 @@ void spaccaChiaveValore(String str_line) {
 }
 
 void stringaToFloatArray(String str, float var_array[]) {
-  char list[255];
+  char list[50];
   str.toCharArray(list, 50);
   char * pch;
   pch = strtok (list, ",");
@@ -89,7 +87,7 @@ void stringaToFloatArray(String str, float var_array[]) {
   }
 }
 void stringaToLongArray(String str, long var_array[]) {
-  char list[255];
+  char list[50];
   str.toCharArray(list, 50);
   char * pch;
   pch = strtok (list, ",");
@@ -104,7 +102,7 @@ void stringaToLongArray(String str, long var_array[]) {
 }
 
 void stringaToIntArray(String str, int var_array[]) {
-  char list[255];
+  char list[50];
   str.toCharArray(list, 50);
   char * pch;
   pch = strtok (list, ",");
@@ -119,7 +117,7 @@ void stringaToIntArray(String str, int var_array[]) {
 }
 
 void stringaToStringArray(String str, String var_array[]) {
-  char list[255];
+  char list[50];
   str.toCharArray(list, 50);
   char * pch;
   pch = strtok (list, ",");

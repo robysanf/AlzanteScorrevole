@@ -17,6 +17,7 @@ void chiedo_configurazioni() {
   delay(100);
   int Numero_Ante_Slave_File = Numero_Ante_Slave;
   String temporaneo_addr = scanner();
+  stringaToIntArray(temporaneo_addr,Ante_Slave);
   boolean check = false;
   // -- RICEVO E SETTO LE VARIABILI
   controllo = configurazione;                                  // -- legge da datainit il valore di configurazione per sapere se fare il
