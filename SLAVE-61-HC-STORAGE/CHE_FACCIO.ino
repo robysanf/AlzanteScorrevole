@@ -181,7 +181,6 @@ String mm="";
       str3 = str2.toFloat() ;
       imp = str3 / 100.00;
       Serial.print("\n imp = "); Serial.print(imp);
-      imp_vel = ((1 / (imp / (cadenza * 2))) * 1000000);
       spazioRallenta = spazioRallenta_mm * imp;  
       quasiChiuso = quasiChiuso_mm * imp; 
       spazio_no_chk_vel = spazio_no_chk_vel_mm * imp;

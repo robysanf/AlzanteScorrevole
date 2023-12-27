@@ -86,23 +86,16 @@ void setup() {
   Serial.print("MAC address: ");
   printMacAddress(mac);
 
- /* while (status != WL_CONNECTED)                                            // attempt to connect to Wifi network:
-  {
-    Serial.print("setup Attempting to connect to SSID: "); Serial.println(ssid);
-    status = WiFi.begin(ssid, pass);                                        // Connect to WPA/WPA2 network. Change this line if using open or WEP network
-    delay(500);                                                             // wait 5 seconds for connectio
-    conteggio ++;
-  }*/
+
   Serial.println("Connected to wifi");
   printWifiStatus();
   Serial.println("\nStarting connection to server...");
  
-  //*******************************************************************
-  // ArduinoOTA.begin(WiFi.localIP(), "Arduino", "password", InternalStorage);
+
 }
 
 void loop() {
-  long tempo=micros();
+  //long tempo=micros();
 /*  while (WiFi.status() != WL_CONNECTED) {
     ferma_WARD(7);
     Udp.stop();
@@ -128,16 +121,15 @@ void loop() {
   if (_Dir != 0) {
     controlla_velocita_WARD();
     // -----------------------------------------------
-    // PASSO DA qua  e guardo il tempo
+    // PASSO DA qua  e guardo il tempo 
     // se il tempo salvato in passato è piu vecchio di un secondo
-    if ( (millis() - check_time) > 1000 ) {
-      //   entro  controllo il movimento e salvo il tempo e il pos
+    if ( (millis() - check_time) > 1000 ){
+    //   entro  controllo il movimento e salvo il tempo e il pos
       check_time = millis();
-      int pos_dif = abs(check_pos_old - pos);
-      if ( pos_dif < 5 * imp ) { //  vuol dire 0,5 cm/sec
-        Serial.println("fermo per niente");
-        Serial.print(" pos_dif = "); Serial.println(pos_dif);
-        ferma_WARD(30);
+      if (abs(check_pos_old - pos) < 10*imp){ // 10 vuol dire 1 cm/sec
+        Serial.print("pos = " );Serial.println(pos);
+        Serial.print("\n femo perchè troppo lento " );
+        Serial.print("check_pos_old = " );Serial.println(check_pos_old);
         //devo avvisare il master che ho fermato qui
         Stato_Anta[0] = 'S'; 
         // fatto
@@ -162,23 +154,7 @@ void loop() {
   delay(5);
   tensione_batteria = map(analogRead(A2), 0, 4095, 0, 3300);
   contatore = contatore + 1 ;
-  Serial.print("Tempo = ");Serial.println(micros()-tempo);
-
-  if (_Dir == 0) {
-    if ( ( (micros() - T1) > (1 / (15 * imp)) * 1000000 * (cadenza * 2)) && V_M != 0) { // -- se sono fermo e son passat1 (1/(15*imp))*1000000*(cadenza*2)) microsecondi allora consi
-      V_M = 0;
-      Serial.print("V_M 00 = "); Serial.println(V_M);
-    }
-    // -- SE DA FERMO MUOVO L'ANTA STAMPO IL POS ****
-    if (pos_vecchio_loop != pos ) {
-      Serial.print("pos = "); Serial.println(pos);
-      Serial.print("V_M = "); Serial.println(V_M);
-      Serial.print("consumo = "); Serial.println(md.getM2CurrentMilliamps());
-    }
-  }
-  pos_vecchio_loop = pos;
-
-  
+  //Serial.print("Tempo = ");Serial.println(micros()-tempo);
 }
 
 

@@ -26,7 +26,31 @@ String Storage_Load() {
      
   }
   file.close();
-  /*uint8_t buf[STORAGE_BUFFER];
+   Serial.print("leggo Storage = "); Serial.println(list0);
+  char * pch;
+  pch = strtok (list0, "#");
+  Serial.print(" prima conversione per spaccare in # "); Serial.println(pch);
+  String array_var[30];
+  int cont = 0;
+  while (pch != NULL)
+  {
+    String s = String(pch);
+    Serial.print("valore che passo al spaccaChiaveValore : "); Serial.println(s);
+    array_var[cont] = s;
+    pch = strtok (NULL, "#");
+    cont++;
+  }
+  for (int i = 0; i < sizeof(array_var); i++)
+  { 
+    if (array_var[i] == "")break;
+    spaccaChiaveValore(array_var[i]);
+  }
+  return s;
+}
+String Storage_Load_1() {
+  WiFiStorageFile file = WiFiStorage.open("/fs/config");
+  String s = "";
+  uint8_t buf[STORAGE_BUFFER];
    uint8_t buf2[250];
   if (file)
   {
@@ -37,8 +61,8 @@ String Storage_Load() {
     file.read(buf2, 500);
      Serial.println(strcat((char*) buf,(char*) buf2));
   }
-  file.close();*/
-  //char* list0 = strcat((char*) buf,(char*) buf2);
+  file.close();
+  char* list0 = strcat((char*) buf,(char*) buf2);
   Serial.print("leggo Storage = "); Serial.println(list0);
   char * pch;
   pch = strtok (list0, "#");
@@ -60,7 +84,6 @@ String Storage_Load() {
   }
   return s;
 }
-
 void spaccaChiaveValore(String str_line) {
   Serial.print(" str_line: "); Serial.println(str_line);
   int posiz = str_line.indexOf("=");

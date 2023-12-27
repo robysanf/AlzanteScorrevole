@@ -248,16 +248,7 @@ void ferma_WARD( int passo) {     // DEVO FERMARE ho introdotto il passo così p
 // CONTROLLA_VELOCITA_WARD
 //*****************************************
 void controlla_velocita_WARD() {
-  if( millis() - tempo_controlla_velocita < 75 ){
-    Serial.println("troppo presto");
-    return;
-  }
-  tempo_controlla_velocita = millis();
   fai_media();
-  if (pos <= ((20 * imp) + pos_chiuso) && _Dir == -1 ) {
-    Serial.println("sono dentro al telaio");
-    return;
-  }
   velocita_misurata = Tachi_Metro();
   if ((micros() - Tempo_Reazione_Emergenza) > 200000) {
     Tempo_Reazione_Emergenza = 0;
@@ -266,10 +257,19 @@ void controlla_velocita_WARD() {
   velocita_misurata = Tachi_Metro();
   if (velocita_misurata < (velocita_crocera * (attrito + (velocita_crocera  * 0.02 * 0.01))) && pos > 12 * imp) {
     fai_media();
+    //Serial.print("Velocita misurata : "); Serial.println(velocita_misurata);
+    //Serial.print("velocita_crocera : " ); Serial.println(velocita_crocera);
+    //Serial.print("icrocera : "); Serial.println(iCrocera);
+    //Serial.print("_Dir : "); Serial.println(_Dir);
+    //Serial.print("v_attuale : " ); Serial.println(v_attuale);
+    //Serial.print("attrito calcolato: " ); Serial.println(attrito + (velocita_crocera  * 0.02 * 0.01));
+    //Serial.print("vel * atrito : "); Serial.println(velocita_crocera * attrito);
     if (Tempo_Reazione_Emergenza == 0) {
       Tempo_Reazione_Emergenza = micros();
+      //Serial.print("TEMPO EMERGENZA : "); Serial.println(Tempo_Reazione_Emergenza);
     }
     Conto_Emergenze = Conto_Emergenze + 1;
+    //Serial.print("CONTO EMERGENZA : "); Serial.println(Conto_Emergenze);
     if ((micros() - Tempo_Reazione_Emergenza) > 100000 || Conto_Emergenze > 3) {
       emergenza(16);
       Conto_Emergenze = 0;
@@ -282,21 +282,21 @@ void controlla_velocita_WARD() {
     if (velocita_misurata > (velocita_crocera * 1.01)) {
       if (velocita_misurata > (velocita_crocera * 1.02)) {
         if (velocita_misurata > (velocita_crocera * 1.03)) {
-          Serial.print("   ------   ");
+          //Serial.print("   ------   ");
           v_attuale = v_attuale - 10 * (_Dir * motore);
           md.setM2Speed(v_attuale);
           //Serial.println(v_attuale);
           tensione = v_attuale;
           return;
         }
-        Serial.print("   ----   ");
+        //Serial.print("   ----   ");
         v_attuale = v_attuale - 8 * (_Dir * motore);
         md.setM2Speed(v_attuale);
         //Serial.println(v_attuale);
         tensione = v_attuale;
         return;
       }
-      Serial.print("   --   ");
+      //Serial.print("   --   ");
       v_attuale = v_attuale - 5 * (_Dir * motore);
       md.setM2Speed(v_attuale);
       //Serial.println(v_attuale);
@@ -310,21 +310,21 @@ void controlla_velocita_WARD() {
 
       if (velocita_misurata < (velocita_crocera * 0.98)) {
         if (velocita_misurata < (velocita_crocera * 0.97)) {
-          Serial.print("   ++++++  ");
+          //Serial.print("   ++++++  ");
           v_attuale = v_attuale + 15 * (_Dir * motore);
           md.setM2Speed(v_attuale);
           //Serial.println(v_attuale);
           tensione = v_attuale;
           return;
         }
-        Serial.print("   ++++  ");
+        //Serial.print("   ++++  ");
         v_attuale = v_attuale + 10 * (_Dir * motore);
         md.setM2Speed(v_attuale);
         //Serial.println(v_attuale);
         tensione = v_attuale;
         return;
       }
-      Serial.print("   ++  ");
+      //Serial.print("   ++  ");
       v_attuale = v_attuale + 5 * (_Dir * motore);
       md.setM2Speed(v_attuale);
       //Serial.println(v_attuale);

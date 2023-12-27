@@ -1,6 +1,7 @@
 void chiedo_configurazioni() {
   Serial.println("inizio chiedo_configurazioni");
   Storage_Load();
+
   Serial.println("Imp = " + String(imp));
   Distanza = Distanza_init * imp;                              // convertito in impulsi
   easy_pass = easy_pass_init * imp;                            // convertito in impulsi

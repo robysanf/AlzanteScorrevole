@@ -78,7 +78,7 @@ void setup()
   Serial.print(F("HTTP server started @ "));
   Serial.println(WiFi.localIP());
   delay(1000);
-  //Storage_Load();
+  
 }
 
 String inputString = "";         // a String to hold incoming data

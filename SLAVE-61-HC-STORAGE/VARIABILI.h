@@ -12,7 +12,7 @@ char Stato_Alzata[1] = {'I'};                // indica lo stato del motore d'alz
 
 volatile long pos = 0;                    // VALORE ATTUALE DELLA POSIZIONE
 long pos_chiuso = 0;                      // VALORE DELLA POSIZIONE TUTTO CHIUSO
-long pos_aperto = 4100;//7900; //16000;                  // VALORE DELLA POSIZIONE TUTTO APERTO
+long pos_aperto = 71200;//7900; //16000;                  // VALORE DELLA POSIZIONE TUTTO APERTO
 long pos_apri_fisso = 0;
 long Pos_vecchio = 0;
 long pos_precedente = 0;
@@ -37,7 +37,7 @@ char cstr_emergenza[16] = {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'
 String str_emergenza = "";
 int TopSpeed = 1200;    // riscalato nelle lib del MC33926
 
-float imp = 6.60;  //2.8 ibrido;   6.6 intecno;  80 CBF;      // inpulsi per millimetro cambia in base al CPR del encoder
+float imp = 80.00;  //2.8 ibrido;   6.6 intecno;  80 CBF;      // inpulsi per millimetro cambia in base al CPR del encoder
 volatile int giro = 0;
 volatile unsigned long T1 = 0;                  // PER MISURARE IL TEMPO TRA UN POS E L'ALTRO
 volatile unsigned long T11 = 0;                 // PER MISURARE IL TEMPO TRA UN POS E L'ALTRO
@@ -45,13 +45,6 @@ volatile unsigned long T2 = 0;                  // PER MISURARE IL TEMPO TRA UN 
 volatile unsigned long T3 = 100000;             // PER MISURARE IL TEMPO TRA UN POS E L'ALTRO
 volatile unsigned long T5 = 0;                  // PER MISURARE IL TEMPO TRA UN POS E L'ALTRO
 float T4 = 0.00;                                // per convertire il formato
-
-int cadenza = 4;
-volatile float V_M = 0.00;
-volatile float imp_vel = ((1 / (imp / (cadenza * 2))) * 1000000);
-volatile int Time = 120000;
-volatile int t_delta = 0;
-
 
 int corrente[20];
 int conta_corrente = 0;
@@ -79,23 +72,24 @@ int spazio_no_chk_vel = 1;         // si          // espresso in mm
 int spazio_no_chk_vel_mm = 1;
 
 float velocita_crocera_COL = 70;   // si          // VELOCITA IN CASO DI COLLISIONE IN mm/sec
-float velocita_crocera_MAX = 110;  // si          // VELOCITA' MASSIMA IN mm/sec
-float velocita_crocera_MIN = 55;   // si          // VELOCITA' LENTO IN mm/sec
-float velocita_crocera_CHI = 45;   // si          // VELOCITA' LENTO IN mm/sec
+float velocita_crocera_MAX = 100;  // si          // VELOCITA' MASSIMA IN mm/sec
+float velocita_crocera_MIN = 65;   // si          // VELOCITA' LENTO IN mm/sec
+float velocita_crocera_CHI = 55;   // si          // VELOCITA' LENTO IN mm/sec
 
 float V_Range_UP = 0.05;           // si          // usata in controllo crociera per determinare il raggiongimento del targhet
 float V_Range_Down = 0.05;
-float attrito = 0.7;               // si                     // usata in controllo velocità per compensare attriti etc...
-int motore = -1;                   // si                     // indica il cablaggio del motore di defoult 1
+float attrito = 0.75;               // si                     // usata in controllo velocità per compensare attriti etc...
+int motore = 1;                   // si                     // indica il cablaggio del motore di defoult 1
 int encoder = -1;                  // si                     // indica il cablaggio del encoder di defoult 1
-int inerzia = 1;                   // si                     // usato nel controllo accellrrazione
-int peso = 10;                     // si
+int inerzia = 4;                   // si                     // usato nel controllo accellrrazione
+int peso = 5;                     // si
 
 
 int Conto_Emergenze = 0;           // -- serve per contare le emergenze che avvengono nel Tempo_Reazione_Emergenza
 long Tempo_Reazione_Emergenza = 0;
+volatile float V_M = 0;
 String str_limit = "";
-int marginelimite = 1;//0-100 è la percentuale usata come limite del valore nel array limiti
+int marginelimite = 5;//0-100 è la percentuale usata come limite del valore nel array limiti
 int limiti[25] = {250, 250, 260, 270, 280, 290, 300, 390, 510, 690, 900, 1080, 1300, 1580, 1930, 2250, 2500, 2750, 2850, 2930, 2990, 3020, 3050, 3070, 3080}; //punti della spezzata
 volatile float test_vel[5] = {0.00, 0.00, 0.00, 0.00, 0.00};
 
@@ -107,12 +101,4 @@ int conteggio = 0;
 
 int check_time = 0;
 int check_pos_old = 0;
-
-int tempo_controlla_velocita = 0;
-int Tempo_MD = 0;
-volatile boolean Blocco_Anta = false;
-volatile int Rele_Blocco = A7;
-
-String inputString = "";         // a String to hold incoming data
-bool stringComplete = false;  // whether the string is complete
-int pos_vecchio_loop;
+int Level_Debug = 1;
