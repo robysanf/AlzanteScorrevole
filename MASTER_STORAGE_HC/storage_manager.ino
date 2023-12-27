@@ -2,13 +2,43 @@ String Storage_Load() {
   WiFiStorageFile file = WiFiStorage.open("/fs/config");
   String s = "";
   uint8_t buf[STORAGE_BUFFER];
+  char* list0="\0";
+  if (file)
+  {
+    int dim=file.size();
+    file.seek(0); 
+   Serial.print("dim ");Serial.println(dim);
+     if(dim>250){
+        file.read(buf, STORAGE_BUFFER);
+        uint8_t buf2[dim-STORAGE_BUFFER-1];
+        file.seek(250);
+        file.read(buf2, dim-STORAGE_BUFFER-1);
+        Serial.print("buf ");Serial.println((char*) buf);
+        Serial.print("buf2 ");Serial.println((char*) buf2);
+        list0=strcat((char*) buf,(char*) buf2);
+     }else
+     {
+       file.read(buf, dim);
+       Serial.print("buf ");Serial.println((char*) buf);
+       list0=(char*) buf;
+      }
+     Serial.print("Concat ");Serial.println(list0);
+     
+  }
+  file.close();
+  /*uint8_t buf[STORAGE_BUFFER];
+   uint8_t buf2[250];
   if (file)
   {
     file.seek(0);
-    file.read(buf, STORAGE_BUFFER);
+    file.read(buf, 250);
+    Serial.println((char*) buf);
+    file.seek(250);
+    file.read(buf2, 500);
+     Serial.println(strcat((char*) buf,(char*) buf2));
   }
-  file.close();
-  char* list0 = (char*) buf;
+  file.close();*/
+  //char* list0 = strcat((char*) buf,(char*) buf2);
   Serial.print("leggo Storage = "); Serial.println(list0);
   char * pch;
   pch = strtok (list0, "#");
