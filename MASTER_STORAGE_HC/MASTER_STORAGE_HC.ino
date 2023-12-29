@@ -14,22 +14,26 @@
 *****************************************************************************************************************************/
 
 #include "defines.h"
+
+#include <WebSockets2_Generic.h>
+
+using namespace websockets2_generic;
+
 #include "arduino_secrets.h"
 #include "Variabili.h"
 #include <WiFiWebServer.h>
 
 
-#define BUFFER_SIZE     5000
+#define BUFFER_SIZE 5000
 
 extern "C" char* sbrk(int incr);
 
-
-WiFiWebServer server(80);
-
+WiFiWebServer server(8080);
+WebsocketsServer SocketsServer;
 // *************************************** please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = SECRET_SSID;              // your network SSID (name)
 char pass[] = SECRET_PASS;              // your network password (use for WPA, or use as key for WEP), length must be 8+
-unsigned int localPort = 2390;          // local port to listen on
+
 int test_alzata = 0;
 int cicli_test = 0;
 long parti = 0;
@@ -38,7 +42,7 @@ int led =  LED_BUILTIN;
 char packetBuffer[256];                 //buffer to hold incoming packet
 char  ReplyBuffer[] = "acknowledged";   // a string to send back
 String hold_packet[10];
-
+WebsocketsClient* client = NULL;
 int status = WL_IDLE_STATUS;
 void setup()
 {
@@ -56,23 +60,17 @@ void setup()
   digitalWrite(3, HIGH );
   Serial.println("Start AP_SimpleWebServer on " + String(BOARD_NAME));
   pinMode(led, OUTPUT);                                   // set the LED pin mode
-  if (WiFi.status() == WL_NO_MODULE)                      // check for the WiFi module:
-  {
-    Serial.println("Communication with WiFi module failed!");
-    testAp();
-    // while (true);                                         // don't continue
-  }
-  String fv = WiFi.firmwareVersion();
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION)
-  {
-    Serial.println("Please upgrade the firmware");
-  }
+ 
+  WIFIMode();
+  SocketsServer.listen(WEBSOCKETS_PORT);
+  Serial.print(SocketsServer.available() ? "WebSockets Server Running and Ready on " : "Server Not Running on ");
+  Serial.println(BOARD_NAME);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+  Serial.print(", Port: ");
+  Serial.println(WEBSOCKETS_PORT);    
 
-
-
-  Serial.print("Creating access point named: "); Serial.println(ssid);
-  WiFi.config(ip); // ************************************** commentare questa riga se si definisce l'IP nel route statico del Mango
-  status = WiFi.beginAP(ssid, pass);
+  
   server.onNotFound(handleNotFound);
   server.begin();
   Serial.print(F("HTTP server started @ "));

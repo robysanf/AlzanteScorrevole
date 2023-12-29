@@ -2,6 +2,7 @@ String pathlog = "log.htm";
 int step_del_log=25;
 //int not_packet=0;
 IPAddress ip(192, 168, 81, 90);
+int wifimode=1;
 int wait = 10;
 int set = 0;                              // SET_UP FATTO OPPURE NO
 int _Dir = 0;                             // INDICA LA DIREZIONE
