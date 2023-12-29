@@ -4,7 +4,8 @@ void set_reset_chiudo() { // INIZIO IL SET:
   md.setM2Speed(0);
   Stato_Anta[0] = 'F';
   if ( digitalRead(A7) == LOW || Stato_Alzata[0] != 'U') { //-- *****ATTENZIONE**** METTERE VARIABILE CON A7
-    Alza_Anta();
+    //Alza_Anta();
+    Alza_Abbassa(500);// METTERE VALORE CORRETTO PER 24 VOLT
     Serial.println("arrivato qui 1");
   }
   velocita_crocera = 0 ;

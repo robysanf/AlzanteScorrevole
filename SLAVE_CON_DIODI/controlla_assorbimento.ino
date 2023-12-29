@@ -1,6 +1,7 @@
 void controlla_assorbimento() {
   if ( digitalRead(A7) == LOW || Stato_Alzata[0] != 'U') {
-    Alza_Anta();
+    //Alza_Anta();
+    Alza_Abbassa(500);// METTERE VALORE CORRETTO PER 24 VOLT
   }
   digitalWrite(4, HIGH);                                    // ABILITA I MOTORI
   if (Stato_Anta[0] = 'T') {                                // SE TUTTO CHIUSO APRO

@@ -143,10 +143,10 @@ void DualMC33926MotorShield::setM1Speed(int speed)
   float conversione = 0.00;
   
   if (speed < 0){ speed = -speed; reverse = 1;}  // Make speed a positive quantity  // Preserve the direction
-  if (speed > 400){ speed = 400;}                // Max PWM dutycycle
+  if (speed > 1200){ speed = 1200;}                // Max PWM dutycycle
 
   conversione = float(speed);
-  conversione = (conversione/400*TopSpeedProcessore);
+  //conversione = (conversione/400*TopSpeedProcessore);
   speed = conversione ;
 
 #ifdef DUALMC33926MOTORSHIELD_TIMERCC0_AVAILABLE

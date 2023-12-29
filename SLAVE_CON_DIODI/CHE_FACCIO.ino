@@ -54,7 +54,8 @@ void che_faccio() {                                //Serial.println(" inizio che
       case 1119: 
       Serial.print("\n alzata");
       Stato_Anta[0] = 'F';
-      Alza_Anta();
+      //Alza_Anta();
+      Alza_Abbassa(500);// METTERE VALORE CORRETTO PER 24 VOLT
       break;
       case 1120: 
       Serial.println( " inizio controllo assorbimento continuo ");
@@ -181,6 +182,7 @@ String mm="";
       str3 = str2.toFloat() ;
       imp = str3 / 100.00;
       Serial.print("\n imp = "); Serial.print(imp);
+      imp_vel = ((1 / (imp / (cadenza * 2))) * 1000000);
       spazioRallenta = spazioRallenta_mm * imp;  
       quasiChiuso = quasiChiuso_mm * imp; 
       spazio_no_chk_vel = spazio_no_chk_vel_mm * imp;

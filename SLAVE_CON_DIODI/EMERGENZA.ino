@@ -75,10 +75,9 @@ void emergenza(int rh) {
                            
   int i = 0;
   int pos_vecchio = 0;
-  if (Level_Debug == 1){
+  
   Serial.print("\n pos_E = "); Serial.print(pos_E);
   Serial.print("\n pos = "); Serial.print(pos);
-  }
   while ( i < 60) {                     // -- tempo massimo 3 secondi
     if (_Dir == 1 && pos >= pos_E) {      // -- in base alla direzione se vado oltre il pos_E esco
       break;

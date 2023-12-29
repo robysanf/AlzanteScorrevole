@@ -1,4 +1,4 @@
-void Abbassa_Anta() {
+void Abbassa_Anta_1() {
   //ferma_WARD(7);
   digitalWrite(4, HIGH);
   Serial.println("ABBASSO ANTA");
@@ -48,7 +48,7 @@ void Abbassa_Anta() {
   return;
 }
 
-void Alza_Anta() {
+void Alza_Anta_1() {
   digitalWrite(4, HIGH);
   Serial.println("ALZO ANTA");
   boolean fuori = false;
